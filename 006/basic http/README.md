@@ -22,3 +22,11 @@ go get -u github.com/gorilla/mux
 ```bash
 go get -u github.com/go-sql-driver/mysql
 ```
+
+connecting to the database 
+
+```go
+
+	db, err := sql.Open("mysql", "root:password(127.0.0.1:3306)/GORMAX?parseTime=true")
+```
+- The error checks if there's any error when connecting to the database
