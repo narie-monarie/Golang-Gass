@@ -63,3 +63,24 @@
     x3 }
     ```
     - but sleep is not good in production
+
+## The sync.WaitGroup
+- used to wait for goroutines to finish
+- under the hood it uses a simple counter and an inner lock
+- the zero value of the wait group is ready to be used 
+- var sync.waitGroup
+
+```go
+func (wg *WaitGroup) Add(delta int) //->add(number of goroutines we wish to wait for and panics if the inner counter is negative)
+func (wg *WaitGroup) Done() //-> decrements innner counter by 1 an should be used when a g routine finishes the work assigned
+func (wg *WaitGroup) Wait() //-> blocks the routine in which it is invoked until the counter reaches 0
+```
+
+
+### Race Conditions
+- Occur when multiple goroutine read and write shared data without any synchronization techniques
+
+## Channels
+![[Channels]](./images/image3.jpg)
+
+- channels is like a tunned to send data between go routines
