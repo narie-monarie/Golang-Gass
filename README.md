@@ -12,10 +12,17 @@
     
     ![[easy Explanation]](./images/goImages2.jpg)
     
-    - The cars are the go routines[independent running tasks]
+    - The cars are the go routines [independent running tasks]
     - The road is the threads they are running on
     - Go runtime as the traffic controller directing traffic
     - Go routines like threads share the same address space
+
+- Common golang execution 
+    1. There is allocation of memory for the program
+    2. Start the main goroutine of our program
+    3. Run the program on a thread
+    4. Execute the code
+    5. Shut down and clean up once the program completes
 
     ```go
     package main
@@ -23,7 +30,7 @@
     import "fmt"
 
     func main() {
-	    hello()
+	    go hello()
 	    goodbye()
     }
 
@@ -35,9 +42,24 @@
 	    fmt.Println("GoodBye World")
     }
     ```
+    - What is currently happening in the above code
+    ![[Go routine]](./images/goImages3.jpg)
+    
+    - Hello is inconsistent because the main goroutine
 
-    1. There is allocation of memory for the program
-    2. Start the main goroutine of our program
-    3. Run the program on a thread
-    4. Execute the code
-    5. Shut down and clean up once the program completes
+    ```go
+    x func main(){ // -> main goroutine has started at time x
+    x1    go hello() //-> main goroutine invokes the hello function and another Hello goroutine is created between time x1 and x2
+    x2    goodbye() // -> the main goroutine invokes this function and then exits between time x2 and x3  
+    x3 }
+    ```
+    - by the time the hello goroutine wants to print "Hello world", the main goroutine had already exited however if it prints, theres is an out of order messages. In order to change this, we can add a sleep timer to prevent the main goroutine from exiting early
+    
+    ```go
+    x func main(){ // -> main goroutine has started at time x
+    x1    go hello() //-> main goroutine invokes the hello function and another Hello goroutine is created between time x1 and x2
+          time.Sleep(1 * time.Second) // -> the main goroutine invokes the time function to sleep and the hello goroutine now executes
+    x2    goodbye() // -> the main goroutine invokes this function and then exits between time x2 and x3  
+    x3 }
+    ```
+    - but sleep is not good in production
