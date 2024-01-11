@@ -84,3 +84,17 @@ func (wg *WaitGroup) Wait() //-> blocks the routine in which it is invoked until
 ![[Channels]](./images/image3.jpg)
 
 - channels is like a tunned to send data between go routines
+![[channel Directions]](./images/image4.jpg)
+
+- sends are receives are blockin until the send and receive are succesful
+
+*Unbuffered Channels*
+- they are synchronous
+![[unbuffered]](./images/image5.jpg)
+
+*Buffered Channels*
+- They are asynchronous
+![[buffered Channels]](./images/image6.jpg)
+
+*Channel Directions*
+![[Chennel Directions]](./images/image7.jpg)
