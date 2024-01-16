@@ -3,21 +3,15 @@ package models
 import (
 	"strconv"
 
-	_ "github.com/mattn/go-sqlite3"
 	config "github.com/narie-monarie/Config"
+	models "github.com/narie-monarie/Models"
 )
 
-type Person struct {
-	Id        int    `json:"id"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	Email     string `json:"email"`
-	IpAddress string `json:"ip_address"`
-}
+type Person = models.Person
 
 func GetPeople(count int) ([]Person, error) {
 	rows, err := config.DB.Query(
-		"SELECT id, first_name, last_name, email, ip_address from people LIMIT " + strconv.Itoa(count),
+		"SELECT id, first_name, last_name, email, ip_address, product from people LIMIT " + strconv.Itoa(count),
 	)
 	if err != nil {
 		return nil, err
@@ -28,7 +22,14 @@ func GetPeople(count int) ([]Person, error) {
 
 	for rows.Next() {
 		singlePerson := Person{}
-		err = rows.Scan(&singlePerson.Id, &singlePerson.FirstName, &singlePerson.LastName, &singlePerson.Email, &singlePerson.IpAddress)
+		err = rows.Scan(
+			&singlePerson.Id,
+			&singlePerson.FirstName,
+			&singlePerson.LastName,
+			&singlePerson.Email,
+			&singlePerson.IpAddress,
+			&singlePerson.Product,
+		)
 		if err != nil {
 			return nil, err
 		}

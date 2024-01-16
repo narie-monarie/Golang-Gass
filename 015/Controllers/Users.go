@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	models "github.com/narie-monarie/Models"
+	models "github.com/narie-monarie/Models/User"
 )
 
 func GetPersons(c *gin.Context) {
