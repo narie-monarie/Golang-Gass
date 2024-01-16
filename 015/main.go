@@ -6,6 +6,12 @@ import (
 	routes "github.com/narie-monarie/Routes"
 )
 
+func checkError(err error) {
+	if err != nil {
+		panic(err)
+	}
+}
+
 func main() {
 	//Fires up gin default router
 	router := gin.Default()
@@ -13,9 +19,4 @@ func main() {
 	checkError(err)
 	routes.UserRoutes(router)
 	router.Run()
-}
-func checkError(err error) {
-	if err != nil {
-		panic(err)
-	}
 }
