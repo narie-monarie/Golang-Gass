@@ -2,66 +2,39 @@ package config
 
 import (
 	"database/sql"
+	"fmt"
 
-	_ "github.com/mattn/go-sqlite3"
+	_ "github.com/lib/pq"
 )
 
 var DB *sql.DB
 
-/*
-
-TODO
-one to many in SQLITE
-
 const create string = `
-
-	  CREATE TABLE IF NOT EXISTS "people" (
-		"id"	INTEGER,
-		"first_name"	TEXT,
-		"last_name"	TEXT,
-		"email"	TEXT,
-		"ip_address"	TEXT,
-		PRIMARY KEY("id" AUTOINCREMENT)
-
+CREATE TABLE Product (
+    Id SERIAL PRIMARY KEY,
+    Name VARCHAR(255),
+    Price NUMERIC(10, 2),
+    Amount BIGINT,
+    Date TIMESTAMP,
+    Status BOOLEAN,
+    PersonId INT REFERENCES Person(Id)
 );
-
-		CREATE TABLE IF NOT EXISTS "people_products" (
-	    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
-	    "person_id" INTEGER,
-	    "product_id" INTEGER,
-	    FOREIGN KEY ("person_id") REFERENCES "people" ("id"),
-	    FOREIGN KEY ("product_id") REFERENCES "products" ("id")
-
-);
-
 `
 
-const create string = `
-
-	CREATE TABLE IF NOT EXISTS "products"(
-		"id" INTEGER PRIMARY KEY AUTOINCREMENT,
-		"name" TEXT,
-		"price" INTEGER,
-		"amount" INTEGER,
-		"date" TEXT,
-		"status" TEXT
-	);
-
-`
-*/
-
-const create string = `
-	CREATE TABLE IF NOT EXISTS "people_products" (
-	  "id" INTEGER PRIMARY KEY AUTOINCREMENT,
-	  "person_id" INTEGER,
-	  "product_id" INTEGER,
-	  FOREIGN KEY ("person_id") REFERENCES "people" ("id"),
-	  FOREIGN KEY ("product_id") REFERENCES "products" ("id")
-	);
-`
+const (
+	host     = "localhost"
+	port     = 5432
+	user     = "monari"
+	password = "secret"
+	dbname   = "narie"
+)
 
 func ConnectToDB() error {
-	db, err := sql.Open("sqlite3", "./tuts.db")
+	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
+		"password=%s dbname=%s sslmode=disable",
+		host, port, user, password, dbname)
+
+	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
 		return err
 	}
@@ -71,6 +44,6 @@ func ConnectToDB() error {
 	}
 
 	DB = db
-
+	fmt.Println("Successfully connected!")
 	return nil
 }

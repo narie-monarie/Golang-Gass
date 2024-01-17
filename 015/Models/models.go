@@ -2,8 +2,6 @@ package models
 
 import (
 	"time"
-
-	_ "github.com/mattn/go-sqlite3"
 )
 
 type Person struct {
@@ -12,7 +10,7 @@ type Person struct {
 	LastName  string     `json:"last_name"`
 	Email     string     `json:"email"`
 	IpAddress string     `json:"ip_address"`
-	Product   *[]Product `json:"products"`
+	Products  *[]Product `json:"products"`
 }
 
 type Product struct {
