@@ -21,3 +21,10 @@ type Product struct {
 	Date   time.Time `json:"date_posted"`
 	Status bool      `json:"is_available"`
 }
+
+type Shipping struct{
+	CompanyName string `json:"company_name"`
+	CompanyLocation string `json:"company_location"`
+	CompanyAddress string `json:"company-address"`
+}
+
