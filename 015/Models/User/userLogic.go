@@ -11,7 +11,7 @@ type Person = models.Person
 
 func GetPeople(count int) ([]Person, error) {
 	rows, err := config.DB.Query(
-		"SELECT id, first_name, last_name, email, ip_address from people LIMIT " + strconv.Itoa(count),
+		"SELECT id, first_name, last_name, email, password from people LIMIT " + strconv.Itoa(count),
 	)
 	if err != nil {
 		return nil, err
