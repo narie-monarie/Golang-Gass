@@ -42,9 +42,11 @@ func ConnectToDB() error {
 		return err
 	}
 
-	if _, err := db.Exec(create); err != nil {
-		return nil
-	}
+	/*
+		if _, err := db.Exec(create); err != nil {
+			return nil
+		}
+	*/
 
 	DB = db
 	fmt.Println("Successfully connected!")
