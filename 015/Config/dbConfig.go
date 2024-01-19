@@ -9,18 +9,21 @@ import (
 
 var DB *sql.DB
 
+/*
 const create string = `
 CREATE TABLE Product (
-    Id SERIAL PRIMARY KEY,
-    Name VARCHAR(255),
-    Price NUMERIC(10, 2),
-    Amount BIGINT,
-    Date TIMESTAMP,
-    Status BOOLEAN,
-    PersonId INT REFERENCES Person(Id)
+
+	Id SERIAL PRIMARY KEY,
+	Name VARCHAR(255),
+	Price NUMERIC(10, 2),
+	Amount BIGINT,
+	Date TIMESTAMP,
+	Status BOOLEAN,
+	PersonId INT REFERENCES Person(Id)
+
 );
 `
-
+*/
 const (
 	host     = "localhost"
 	port     = 5432
