@@ -27,7 +27,7 @@ func GetPeople(count int) ([]Person, error) {
 			&singlePerson.FirstName,
 			&singlePerson.LastName,
 			&singlePerson.Email,
-			&singlePerson.IpAddress,
+			&singlePerson.Password,
 		)
 		if err != nil {
 			return nil, err
