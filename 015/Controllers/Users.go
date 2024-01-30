@@ -24,6 +24,7 @@ func GetPersonById(c *gin.Context) {
 	id := c.Param("id")
 	c.JSON(http.StatusOK, gin.H{"message": "Get Person" + id + " By ID"})
 }
+
 func AddPerson(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Added a person"})
 }

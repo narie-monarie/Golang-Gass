@@ -13,7 +13,6 @@ type Film struct {
 }
 
 func main() {
-	fmt.Println("Hello Niggas")
 
 	hello := func(w http.ResponseWriter, r *http.Request) {
 		templ := template.Must(template.ParseFiles("frontend/index.html"))
