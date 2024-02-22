@@ -8,4 +8,5 @@ import (
 func UserRoutes(router *http.ServeMux) {
 	router.HandleFunc("GET /", controllers.GetCats)
 	router.HandleFunc("GET /{id}", controllers.GetCat)
+	router.HandleFunc("POST /", controllers.AddCat)
 }

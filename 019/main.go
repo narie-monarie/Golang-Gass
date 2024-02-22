@@ -14,4 +14,5 @@ func main() {
 	}
 	routes.UserRoutes(router)
 	http.ListenAndServe(":8090", router)
+
 }

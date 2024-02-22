@@ -6,6 +6,11 @@ import (
 	"github.com/google/uuid"
 )
 
+/*
+TODO
+make one to many possible and check on the implementation if the UUID
+*/
+
 type Person struct {
 	Id        uuid.UUID  `json:"id"`
 	FirstName string     `json:"first_name"`
@@ -24,6 +29,7 @@ type Product struct {
 	Status      bool        `json:"is_available"`
 	ShippedFrom *[]Shipping `json:"product_from"`
 }
+
 
 type Shipping struct {
 	CompanyName     string     `json:"company_name"`

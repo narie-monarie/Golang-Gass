@@ -9,7 +9,7 @@ import (
 
 type Cat = models.Cat
 
-func GetCat(w http.ResponseWriter, req *http.Request) {
+func GetCats(w http.ResponseWriter, req *http.Request) {
 	cats := Cat{}
 	config.DB.Find(&cats)
 	catjson, err := json.Marshal(&cats)

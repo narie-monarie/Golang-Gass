@@ -75,3 +75,81 @@ func GetCat(w http.ResponseWriter, r *http.Request) {
 }
 
 // Add Cat
+
+func addACat(cat Cat) (bool, error) {
+	ac, err := config.DB.Begin()
+	if err != nil {
+		return false, err
+	}
+
+	stmt, err := ac.Prepare("INSERT INTO cats (catname, cattype) VALUES(?,?)")
+	if err != nil {
+		return false, err
+	}
+
+	defer stmt.Close()
+	_, err = stmt.Exec(cat.Name, cat.CatType)
+	if err != nil {
+		return false, err
+	}
+
+	ac.Commit()
+
+	return true, nil
+
+}
+
+func AddCat(w http.ResponseWriter, r *http.Request) {
+
+	var cat Cat
+	err := json.NewDecoder(r.Body).Decode(&cat)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	success, err := addACat(cat)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	if !success {
+		http.Error(w, "Failed to add cat", http.StatusInternalServerError)
+		return
+	}
+
+	response := map[string]string{"message": "Cat added successfully"}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(response)
+}
+
+//Update a cat
+
+func updateTheCat(cat Cat, id int) (bool, error) {
+	uc, err := config.DB.Begin()
+	if err != nil {
+		return false, err
+	}
+
+	stmt, err := uc.Prepare("UPDATE cats SET catname = ? cattype = ? where id = ?")
+
+	if err != nil {
+		return false, err
+	}
+
+	defer stmt.Close()
+
+	_, err := stmt.Execute(cat.Name, cat.CatType)
+
+	if err != nil {
+		return false, err
+	}
+	uc.Commit()
+
+	return true, nil
+}
+
+func UpdateCat(w http.ResponseWriter, r *http.Request) {
+
+}
