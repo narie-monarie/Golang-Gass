@@ -6,5 +6,7 @@ import (
 )
 
 func CatRoutes(router *http.ServeMux) {
-	router.HandleFunc("GET /", controllers.GetCats)
+	router.HandleFunc("GET /cats", controllers.GetCats)
+	router.HandleFunc("GET /cat/{id}", controllers.GetCat)
+	router.HandleFunc("POST /cat", controllers.GetCat)
 }

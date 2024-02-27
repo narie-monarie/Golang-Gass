@@ -33,7 +33,7 @@ func getAllCats() ([]Cat, error) {
 func GetCats(w http.ResponseWriter, r *http.Request) {
 	cats, err := getAllCats()
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(w, "cannot get cats", http.StatusInternalServerError)
 		return
 	}
 
@@ -125,31 +125,3 @@ func AddCat(w http.ResponseWriter, r *http.Request) {
 }
 
 //Update a cat
-
-func updateTheCat(cat Cat, id int) (bool, error) {
-	uc, err := config.DB.Begin()
-	if err != nil {
-		return false, err
-	}
-
-	stmt, err := uc.Prepare("UPDATE cats SET catname = ? cattype = ? where id = ?")
-
-	if err != nil {
-		return false, err
-	}
-
-	defer stmt.Close()
-
-	_, err := stmt.Execute(cat.Name, cat.CatType)
-
-	if err != nil {
-		return false, err
-	}
-	uc.Commit()
-
-	return true, nil
-}
-
-func UpdateCat(w http.ResponseWriter, r *http.Request) {
-
-}

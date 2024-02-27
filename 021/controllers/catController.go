@@ -14,7 +14,6 @@ func GetCats(w http.ResponseWriter, req *http.Request) {
 	config.DB.Find(&cats)
 	catjson, err := json.Marshal(&cats)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
 		panic(err)
 	}
 	w.Header().Set("Content-Type", "application/json")

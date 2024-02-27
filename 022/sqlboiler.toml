@@ -1,0 +1,13 @@
+output = "models"
+wipe = true
+add-enum-types = true
+
+[sqlite3]
+dbname = "./main.db"
+
+[models]
+users = "" # Replace with your actual table name
+
+[auto-columns]
+created = "createdAt"
+updated = "updatedAt"
