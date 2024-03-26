@@ -61,15 +61,10 @@ func main() {
 	// defer db.Close()
 
 	app.Get("/users", GetAllUsers)
-
 	app.Get("/user/:id", GetUser)
-
 	app.Post("/user", CreateUser)
-
 	app.Delete("/user/:id", DeleteUser)
-
 	app.Patch("/user/:id", UpdateUser)
-
 	app.Listen(":42069")
 }
 
